@@ -1,0 +1,42 @@
+<form #myForm="ngForm" class="form" (ngSubmit)="onSubmit(myForm.value,myForm.valid)" novalidate>
+  <div class="form-control">
+    <label for="username">Username:</label>
+    <input [(ngModel)]="model.name" type="text" name="username" id="username" required #uname="ngModel" />
+    <div [hidden]="!myForm.form.hasError('required','username')">
+      Username is required!
+    </div>
+  </div>
+  <div class="form-control1" ngModelGroup="passwordGroup" equal>
+    <div>
+      <label for="password">Password:</label>
+      <input ngModel type="password" name="password" id="password" required minlength="6" #pass="ngModel" />
+      <div *ngIf="pass.invalid && (pass.touched || pass.dirty)">
+        <div *ngIf="pass.errors.minlength">
+          Password length cannot be less than 6 digits
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="confirmPass">Confirm password:</label>
+      <input ngModel type="password" name="confirmPass" id="confirmPass" required />
+    </div>
+    <div [hidden]="!myForm.form.hasError('equal','passwordGroup')">
+      Entered two passwords are incorrect!
+    </div>
+  </div>
+  <div class="form-control1">
+    <label for="mobile">Mobile no:</label>
+    <input ngModel type="text" name="mobile" id="mobile" mobile />
+  </div>
+  <div [hidden]="!myForm.form.hasError('mobile','mobile')">
+    Phone number format is incorrect
+  </div>
+  <div class="form-control1">
+    <label for="hobby">Hobbies:</label>
+    <select name="hobby" id="hobby" [ngModel]='model.default'>
+      <option value="-Please select-" disabled>--Please select-</option>
+      <option *ngFor="let hobby of hobbys" [value]='hobby'>{{hobby}}</option>
+    </select>
+  </div>
+  <div><input type="submit" value="提交" [disabled]="!myForm.form.valid" /></div>
+</form>

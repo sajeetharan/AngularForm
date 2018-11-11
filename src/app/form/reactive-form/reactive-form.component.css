@@ -1,0 +1,10 @@
+.height68 {
+  height: 68px;
+}
+.form-control {
+  border: none;
+}
+.form-validate{
+  color:red;
+  font-size: 11px;
+}

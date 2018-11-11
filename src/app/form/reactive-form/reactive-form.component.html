@@ -1,0 +1,43 @@
+<form class="form" [formGroup] = "formModel" (submit) = "onSubmit()">
+  <div class="form-control">
+    <label for="username">username:</label>
+    <input type="text" name="username" id="username" formControlName="username"/>
+  </div>
+  <div [hidden] = "formModel.get('username').valid">
+    <div class="form-validate" [hidden]="!formModel.hasError('required','username')">Username can not be empty</div>
+    <div class="form-validate" [hidden]="!formModel.hasError('minlength','username')">
+      Username cannot be less than 6 digits in length</div>
+  </div>
+  <div class="form-control height68" formGroupName="passwords">
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" formControlName="password">
+    </div>
+    <div class="form-validate" [hidden]="!formModel.hasError('minlength',['passwords','password'])">
+       Password length cannot be less than 6 digits
+    </div>
+    <div>
+      <label for="confirmPass">Confirm password:</label>
+      <input type="password" name="confirmPass" id="confirmPass" formControlName="confirmPass"/>
+    </div>
+  </div>
+  <div class="form-validate" [hidden]="!formModel.hasError('equal','passwords')">
+    {{formModel.getError('equal','passwords')?.desc}}
+  </div>
+  <div class="form-control">
+    <label for="mobile">Phone:</label>
+    <input type="text" name="mobile" id="mobile" formControlName="mobile"/>
+  </div>
+  <div [hidden]="formModel.get('mobile').valid || formModel.get('mobile').untouched">
+     <div [hidden]="!formModel.hasError('mobile','mobile')">Please enter correct phone no format</div>
+  </div>
+  <div class="form-control">
+    <label for="hobby">Hobbies:</label>
+    <select name="hobby" id="hobby" formControlName="hobby">
+      <option value="-Please select-" disabled>-Please select-</option>
+      <option *ngFor="let hobby of model.hobbys" [value]='hobby'>{{hobby}}</option>
+    </select>
+  </div>
+  <div><input type="submit" value="Submit"/></div>
+</form>
+
